@@ -1,0 +1,178 @@
+var _aybabtme$projplan$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'SetTaskName':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						scratch: {name: _p0._0, duration: model.scratch.duration}
+					});
+			case 'SetTaskDuration':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						scratch: {
+							name: model.scratch.name,
+							duration: {
+								days: A2(
+									_elm_lang$core$Maybe$withDefault,
+									0,
+									_elm_lang$core$Result$toMaybe(
+										_elm_lang$core$String$toInt(_p0._0)))
+							}
+						}
+					});
+			case 'AddTask':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						tasks: A2(
+							_elm_lang$core$List$append,
+							model.tasks,
+							{
+								ctor: '::',
+								_0: _p0._0,
+								_1: {ctor: '[]'}
+							})
+					});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						tasks: A2(
+							_elm_lang$core$List$filter,
+							function (n) {
+								return !_elm_lang$core$Native_Utils.eq(n, _p0._0);
+							},
+							model.tasks)
+					});
+		}
+	});
+var _aybabtme$projplan$Main$Duration = function (a) {
+	return {days: a};
+};
+var _aybabtme$projplan$Main$Task = F2(
+	function (a, b) {
+		return {name: a, duration: b};
+	});
+var _aybabtme$projplan$Main$Model = F2(
+	function (a, b) {
+		return {scratch: a, tasks: b};
+	});
+var _aybabtme$projplan$Main$model = A2(
+	_aybabtme$projplan$Main$Model,
+	{
+		name: '',
+		duration: {days: 0}
+	},
+	{ctor: '[]'});
+var _aybabtme$projplan$Main$RemoveTask = function (a) {
+	return {ctor: 'RemoveTask', _0: a};
+};
+var _aybabtme$projplan$Main$AddTask = function (a) {
+	return {ctor: 'AddTask', _0: a};
+};
+var _aybabtme$projplan$Main$SetTaskDuration = function (a) {
+	return {ctor: 'SetTaskDuration', _0: a};
+};
+var _aybabtme$projplan$Main$SetTaskName = function (a) {
+	return {ctor: 'SetTaskName', _0: a};
+};
+var _aybabtme$projplan$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$type_('text'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder('Name'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(_aybabtme$projplan$Main$SetTaskName),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$input,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$type_('text'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$placeholder('Days'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onInput(_aybabtme$projplan$Main$SetTaskDuration),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_aybabtme$projplan$Main$AddTask(model.scratch)),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Add a task'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_aybabtme$projplan$Main$RemoveTask(model.scratch)),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Remove a task (by name)'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$ul,
+								{ctor: '[]'},
+								A2(
+									_elm_lang$core$List$map,
+									function (l) {
+										return A2(
+											_elm_lang$html$Html$li,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(l.name),
+												_1: {ctor: '[]'}
+											});
+									},
+									model.tasks)),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+};
+var _aybabtme$projplan$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _aybabtme$projplan$Main$model, view: _aybabtme$projplan$Main$view, update: _aybabtme$projplan$Main$update})();
