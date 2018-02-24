@@ -2,7 +2,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 
-
 main =
   Html.beginnerProgram { model = model, view = view, update = update }
 
@@ -42,6 +41,8 @@ update msg model =
         { model |
             scratch = { name = name, duration = model.scratch.duration }
         }
+
+    -- TODO throw an error on duplicate task name
     SetTaskDuration duration ->
         { model |
             scratch = { name = model.scratch.name, duration = {days=
@@ -49,6 +50,9 @@ update msg model =
             }}
         }
 
+    -- TODO throw an error on empty task name
+    -- TODO throw an error on duplicate task name
+    -- TODO throw an error on invalid task duration
     AddTask task ->
       { model | tasks =  List.append model.tasks [task] }
 
@@ -62,7 +66,7 @@ view model =
   div []
     [
         input [ type_ "text", placeholder "Name", onInput SetTaskName ] [],
-        input [ type_ "text", placeholder "Days", onInput SetTaskDuration ] [],
+        input [ type_ "number", placeholder "Days", onInput SetTaskDuration ] [],
         button [ onClick (AddTask model.scratch) ] [ text "Add a task" ],
         button [ onClick (RemoveTask model.scratch) ] [ text "Remove a task (by name)" ],
         ul [] (List.map (\l -> li [] [ text l.name] ) model.tasks )

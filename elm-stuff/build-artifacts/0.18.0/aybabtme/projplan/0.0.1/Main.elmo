@@ -107,7 +107,7 @@ var _aybabtme$projplan$Main$view = function (model) {
 					_elm_lang$html$Html$input,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$type_('text'),
+						_0: _elm_lang$html$Html_Attributes$type_('number'),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$html$Html_Attributes$placeholder('Days'),
