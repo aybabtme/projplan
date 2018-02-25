@@ -1,0 +1,11 @@
+[
+    {"duration": {"min": "24h", "max": "120h"}, "name": "research boats"},
+    {"duration": {"min": "1h", "max": "24h"}, "name": "choose area"},
+    {"duration": {"min": "1h", "max": "2h"}, "name": "rent a car", "depends": ["choose area"]},
+    {"duration": {"min": "1h", "max": "5h"}, "name": "book accomodation", "depends": ["choose area"]},
+    {"duration": {"min": "24h", "max": "48h"}, "name": "call brokers", "depends": ["choose area", "research boats"]},
+    {"duration": {"min": "72h", "max": "120h"}, "name": "view boats", "depends": ["research boats", "choose area", "call brokers", "book accomodation", "rent a car"]},
+    {"duration": {"min": "24h", "max": "48h"}, "name": "get money", "depends": ["talk to bank"]},
+    {"duration": {"min": "24h", "max": "48h"}, "name": "talk to bank"},
+    {"duration": {"min": "72h", "max": "120h"}, "name": "make offer", "depends": ["get money", "view boats"]}
+]
